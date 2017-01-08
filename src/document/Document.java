@@ -71,9 +71,9 @@ public abstract class Document {
 		boolean lastState=false;
 		char lastChar=' ';
 		int numOfSyllables=0;
+		String vowels = "aeiouyAEIOUY";
 		for (char c : word.toCharArray()){
-			if(c == 'a' || (c == 'e' && lastChar != ' ') || c == 'o' || c == 'u' || c == 'i' || c == 'y') state = true;
-			else if (c == 'A' || (c == 'E' && lastChar != ' ') || c == 'O' || c == 'U' || c == 'I' || c == 'Y') state=true;
+			if( ((c == 'e' || c == 'E') && lastChar != ' ') || vowels.indexOf(c)>0) state = true; 
 			else {
 				state=false;
 				lastState=false;
@@ -152,8 +152,8 @@ public abstract class Document {
 		// then implement it in week 2
 		double sectionOne = 1.015*((double)getNumWords()/(double)getNumSentences()) ;
 		double sectionTwo = 84.6*((double)getNumSyllables()/(double)getNumWords());
-		double FleshScore = 206.835 - sectionOne - sectionTwo;
-//		double FleshScore = getNumSyllables();
+//		double FleshScore = 206.835 - sectionOne - sectionTwo;
+		double FleshScore = getNumSyllables();
 		return FleshScore;
 	}
 	
