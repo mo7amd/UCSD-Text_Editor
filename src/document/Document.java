@@ -58,7 +58,7 @@ public abstract class Document {
 	 * @param word  The word to count the syllables in
 	 * @return The number of syllables in the given word, according to 
 	 * this rule: Each contiguous sequence of one or more vowels is a syllable, 
-	 *       with the following exception: a lone "e" at the end of a word 
+	 *       with the following exception: alone "e" at the end of a word 
 	 *       is not considered a syllable unless the word has no other syllables. 
 	 *       You should consider y a vowel.
 	 */
@@ -67,7 +67,25 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-	    return 0;
+		boolean state=false;
+		boolean lastState=false;
+		char lastChar=' ';
+		int numOfSyllables=0;
+		for (char c : word.toCharArray()){
+			if(c == 'a' || (c == 'e' && lastChar != ' ') || c == 'o' || c == 'u' || c == 'i' || c == 'y') state = true;
+			else if (c == 'A' || (c == 'E' && lastChar != ' ') || c == 'O' || c == 'U' || c == 'I' || c == 'Y') state=true;
+			else {
+				state=false;
+				lastState=false;
+				}
+			
+			if(state!=lastState){
+				numOfSyllables++;
+				lastState=state;
+			}
+			lastChar = c;
+		}
+	    return numOfSyllables;
 	}
 	
 	/** A method for testing
@@ -132,8 +150,11 @@ public abstract class Document {
 	{
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
-		
-	    return text.length();
+		double sectionOne = 1.015*((double)getNumWords()/(double)getNumSentences()) ;
+		double sectionTwo = 84.6*((double)getNumSyllables()/(double)getNumWords());
+		double FleshScore = 206.835 - sectionOne - sectionTwo;
+//		double FleshScore = getNumSyllables();
+		return FleshScore;
 	}
 	
 	
