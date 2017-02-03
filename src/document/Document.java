@@ -152,8 +152,8 @@ public abstract class Document {
 		// then implement it in week 2
 		double sectionOne = 1.015*((double)getNumWords()/(double)getNumSentences()) ;
 		double sectionTwo = 84.6*((double)getNumSyllables()/(double)getNumWords());
-//		double FleshScore = 206.835 - sectionOne - sectionTwo;
-		double FleshScore = getNumSyllables();
+		double FleshScore = 206.835 - sectionOne - sectionTwo;
+//		double FleshScore = getNumSyllables();
 		return FleshScore;
 	}
 	
